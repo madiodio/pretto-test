@@ -74,16 +74,16 @@ Remix offre une **flexibilité architecturale** que je trouve particulièrement 
 
 J'ai délibérément évité Next.js pour plusieurs raisons pragmatiques :
 
-1. **Lock-in Vercel** : Next.js fonctionne ailleurs qu'on Vercel, mais soyons honnêtes, l'expérience optimale (Edge Runtime, ISR, Middleware) est clairement pensée pour leur plateforme. Pour une boîte qui gère 500k visiteurs/mois et qui peut avoir des besoins spécifiques de hosting (compliance, coûts), c'est un risque de dépendance. Vercel reste cher à l'échelle.
+1. **Lock-in Vercel** : Bien que Next.js fonctionne ailleurs que sur Vercel, l'expérience optimale (Edge Runtime, ISR, Middleware) est clairement (et cela est ouvertement assumé) pensée pour leur plateforme. Pour une plateforne qui génère 500k visiteurs/mois et qui peut avoir des besoins spécifiques de hosting (compliance, coûts), c'est un risque de dépendance. Vercel est très couteux à l'échelle.
 
-2. **Dépendances environnementales "all or nothing"** : L'App Router de Next.js pousse vers un modèle où tu dois adopter leurs conventions en bloc. Si tu veux utiliser certaines features (Server Actions, streaming), tu rentres dans un écosystème où c'est difficile de revenir en arrière ou d'hybrider avec d'autres approches.
+2. **Dépendances environnementales "all or nothing"** : L'App Router de Next.js pousse vers un modèle où l'on doit adopter ses conventions en bloc. Si l'on souhaite utiliser certaines features (Server Actions, streaming), on rentre de facto dans un écosystème où c'est difficile de revenir en arrière ou de faire de l'hybrid avec d'autres approches.
 
 3. **Complexité du système de cache** : Le caching dans Next.js 14+ (avec `fetch` automatique, revalidation tags, etc.) est puissant mais parfois opaque. Pour une équipe qui doit maintenir le système sur le long terme, la simplicité de Remix (headers HTTP standards) me semble plus maintenable.
 
 ### Forces de Remix pour ce use-case
 
 - **Web Standards** : Remix s'appuie massivement sur les standards HTTP (`Cache-Control`, `stale-while-revalidate`). Pas de magie noire, juste du HTTP bien fait.
-- **Progressive Enhancement** : Le site fonctionne même sans JS (bon, avec WordPress HTML, c'est déjà une bonne base).
+- **Progressive Enhancement** : Le site fonctionne même sans JS.
 - **Nested routing** : Pratique pour structurer les layouts (header/footer communs, sidebar par section, etc.).
 - **Déployable partout** : Node.js, Deno, Cloudflare Workers, Fly.io... Pas de lock-in.
 
@@ -137,7 +137,7 @@ Visiteur → CDN (Cloudflare) → Remix App → In-Memory Cache → WordPress AP
    - En production, remplacer par Redis/Memcached
 
 3. **Fallback sur erreur**
-   - Si WordPress timeout ou 500 → on sert le cache (même stale)
+   - Si WordPress timeout ou est en 500 → on sert le cache (même si stale)
    - On log l'erreur mais on ne crash pas le build/runtime
    - Build/déploiement découplé de la disponibilité WordPress
 
