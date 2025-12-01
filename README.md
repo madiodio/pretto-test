@@ -223,5 +223,3 @@ npm run dev
 Puis visiter : `http://localhost:5173/actualites/wordpress-6-9-release-candidate-3`
 
 **Le projet est pré-configuré avec l'API publique de WordPress.org News** pour permettre d'effectuer les tests sans accès à l'API Pretto.
-
-Voir [`remix-solution/README.md`](./remix-solution/README.md) pour le guide complet de test.

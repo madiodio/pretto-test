@@ -8,7 +8,6 @@
 ### Installation
 
 ```bash
-cd remix-solution
 npm install
 ```
 
